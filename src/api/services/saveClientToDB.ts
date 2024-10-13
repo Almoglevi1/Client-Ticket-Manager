@@ -1,7 +1,14 @@
 import Client from '../models/client';
+import { ITicket } from '../models/ticket';
+
+// Define an interface for the client data
+interface IClientData {
+    identifier: string;
+    ticket: ITicket;
+}
 
 // Function to save client data to the database
-const saveClientToDB = async (clientData) => {
+const saveClientToDB = async (clientData: IClientData): Promise<void> => {
     try {
         const { identifier, ticket } = clientData;
         const existingClient = await Client.findOne({ identifier });
@@ -19,7 +26,7 @@ const saveClientToDB = async (clientData) => {
             await client.save();
         }
     } catch (error) {
-        throw new Error(`Failed to save client data: ${error.message}`);
+        throw new Error(`Failed to save client data: ${(error as Error).message}`);
     }
 };
 

@@ -2,9 +2,8 @@
   "name": "consist",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "tsc && nodemon dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +18,11 @@
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "typescript": "^5.6.3"
   }
 }

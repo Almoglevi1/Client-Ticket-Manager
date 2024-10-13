@@ -1,7 +1,8 @@
 import formatDate from "../utils/formatDate";
 import { addTagsToTicket, addNoteToTicket } from "../services/glassixServices";
+import { Request, Response, NextFunction } from 'express';
 
-const newTicketController = async (req, res, next) => {
+const newTicketController = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         // Extract the event data from the request body
         const { changes } = req.body;
@@ -33,7 +34,7 @@ const newTicketController = async (req, res, next) => {
             return res.status(200).json({ message: "Event is not a new ticket event" });
         }
     } catch (error) {
-        console.error(`Error processing new ticket event: ${error.message}`);
+        console.error(`Error processing new ticket event: ${(error as Error).message}`);
         // Pass the error to the error handler middleware
         next(error);
     }

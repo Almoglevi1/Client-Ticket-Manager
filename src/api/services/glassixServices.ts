@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from './getToken.js';
 
-const getTicket = async (ticketId) => {
+const getTicket = async (ticketId: string) => {
     try {
         const token = await getToken();
         const getTicketUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/get/${ticketId}`;
@@ -13,11 +13,11 @@ const getTicket = async (ticketId) => {
         });
         return response.data;
     } catch (error) {
-        throw new Error(`Failed to fetch ticket data for ticket ID ${ticketId}: ${error.message}`);
+        throw new Error(`Failed to fetch ticket data for ticket ID ${ticketId}: ${(error as Error).message}`);
     }
 };
 
-const addTagsToTicket = async (ticketId) => {
+const addTagsToTicket = async (ticketId: string) => {
     try {
         const token = await getToken();
         const addTagsUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addtags/${ticketId}`;
@@ -30,11 +30,11 @@ const addTagsToTicket = async (ticketId) => {
             },
         });
     } catch (error) {
-        throw new Error(`Failed to add tags to ticket ID ${ticketId}: ${error.message}`);
+        throw new Error(`Failed to add tags to ticket ID ${ticketId}: ${(error as Error).message}`);
     }
 };
 
-const addNoteToTicket = async (ticketId, noteContent) => {
+const addNoteToTicket = async (ticketId: string, noteContent: string) => {
     try {
         const token = await getToken();
         const addNoteUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addnote/${ticketId}`;
@@ -46,11 +46,11 @@ const addNoteToTicket = async (ticketId, noteContent) => {
             },
         });
     } catch (error) {
-        throw new Error(`Failed to add note to ticket ID ${ticketId}: ${error.message}`);
+        throw new Error(`Failed to add note to ticket ID ${ticketId}: ${(error as Error).message}`);
     }
 };
 
-const scrambleTicket = async (ticketId) => {
+const scrambleTicket = async (ticketId: string) => {
     try {
         const token = await getToken();
         const scrambleUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/scramble/${ticketId}`;
@@ -61,7 +61,7 @@ const scrambleTicket = async (ticketId) => {
             },
         });
     } catch (error) {
-        throw new Error(`Failed to scramble ticket ID ${ticketId}: ${error.message}`);
+        throw new Error(`Failed to scramble ticket ID ${ticketId}: ${(error as Error).message}`);
     }
 };
 

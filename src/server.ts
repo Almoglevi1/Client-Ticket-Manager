@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import connectDB from './config/connectDB.js';
-import webhookRoutes from './api/routes/webhookRoutes.js';
-import errorHandler from './api/middlewares/errorHandler.js';
+import connectDB from './config/connectDB';
+import webhookRoutes from './api/routes/webhookRoutes';
+import errorHandler from './api/middlewares/errorHandler';
 
 dotenv.config();
 
