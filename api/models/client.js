@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { ticketSchema } = require('./ticket');
+import mongoose from 'mongoose';
+import { ticketSchema } from './ticket';
 
 const clientSchema = new mongoose.Schema({
     identifier: { type: String, required: true },
@@ -8,4 +8,4 @@ const clientSchema = new mongoose.Schema({
 
 const Client = mongoose.model('Client', clientSchema);
 
-module.exports = Client;
+export default Client;

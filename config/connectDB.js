@@ -1,5 +1,4 @@
-const mongoose = require('mongoose'); 
-require('dotenv').config();
+import mongoose from 'mongoose';
 
 // Connect to MongoDB
 const connectDB = async () => { 
@@ -7,10 +6,10 @@ const connectDB = async () => {
         await mongoose.connect('mongodb://localhost:27017/consist', {});
         console.log('Connected to MongoDB');
     } catch (error) {
-        console.error('Error connecting to MongoDB:', error.message);
+        console.error(`Error connecting to MongoDB: ${error.message}`);
+        // Exit the process with an error
         process.exit(1);
     }
 };
 
-module.exports = connectDB;
-
+export default connectDB;

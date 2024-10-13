@@ -1,5 +1,5 @@
-const errorHandler = (err, req, res, next) => {
-    res.status(err.status || 500).json({ message: err.message });
+const errorHandler = (error, req, res, next) => {
+    res.status(error.status || 500).json({ message: error.message });
 };
 
-module.exports = errorHandler;
+export default errorHandler;

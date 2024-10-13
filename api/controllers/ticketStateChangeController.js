@@ -1,29 +1,30 @@
-const formatDate = require("../utils/formatDate");
-const { getTicket, scrambleTicket } = require("../services/glassixServices");
-const saveClientToDB = require('../services/saveClientToDB');
+import formatDate from "../utils/formatDate.js";
+import { getTicket, scrambleTicket } from "../services/glassixServices.js";
+import saveClientToDB from '../services/saveClientToDB.js';
 
 const ticketStateChangeController = async (req, res, next) => {
     try {
         // Extract the event data from the request body
-        const { key, dateTime, changes } = req.body;
+        const { changes } = req.body;
 
         // Check if the event is a "TICKET_STATE_CHANGE" event and the ticket state is "Closed"
         if (changes && changes[0]._event === "TICKET_STATE_CHANGE" && changes[0].ticketState === "Closed") {
 
-            const closedTicketId = changes[0].ticketId;
+          // Fetch ticket data using the ticketId from the changes array
+          const ticketData = await getTicket(changes[0].ticketId);
 
-            // Fetch ticket data
-            const ticketData = await getTicket(closedTicketId);
+            // Destructure the necessary properties from the ticketData
+            const { participants: [{ identifier, name: clientName, protocolType }], id: ticketId, open, transactions } = ticketData;
 
-            // Store the data into variables
+            // Create client data object
             const clientData = {
-                identifier: ticketData.participants[0].identifier, 
+                identifier, 
                 ticket: {
-                    clientName: ticketData.participants[0].name,
-                    ticketId: ticketData.id,
-                    ticketOpeningDate: formatDate(ticketData.open),
-                    protocolType: ticketData.participants[0].protocolType,
-                    transactions: ticketData.transactions
+                    clientName,
+                    ticketId,
+                    ticketOpeningDate: formatDate(open),
+                    protocolType,
+                    transactions
                 }
             };
 
@@ -44,10 +45,10 @@ const ticketStateChangeController = async (req, res, next) => {
             return res.status(200).json({ message: "Event is not a ticket state change event" });
         }
     } catch (error) {
-        console.error("Error processing ticket state change:", error.message);
+        console.error(`Error processing ticket state change: ${error.message}`);
         // Pass the error to the error handler middleware
         next(error);
     }
 };
 
-module.exports = ticketStateChangeController;
+export default ticketStateChangeController;

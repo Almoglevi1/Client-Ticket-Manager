@@ -1,18 +1,20 @@
-const Client = require('../models/client');
+import Client from '../models/client';
 
 // Function to save client data to the database
 const saveClientToDB = async (clientData) => {
     try {
-        const existingClient = await Client.findOne({ identifier: clientData.identifier });
+        const { identifier, ticket } = clientData;
+        const existingClient = await Client.findOne({ identifier });
+        
         if (existingClient) {
             // Add new ticket to the existing client's tickets array
-            existingClient.tickets.push(clientData.ticket);
+            existingClient.tickets.push(ticket);
             await existingClient.save();
         } else {
             // Save new client data with the ticket
             const client = new Client({
-                identifier: clientData.identifier,
-                tickets: [clientData.ticket]
+                identifier,
+                tickets: [ticket]
             });
             await client.save();
         }
@@ -21,4 +23,4 @@ const saveClientToDB = async (clientData) => {
     }
 };
 
-module.exports = saveClientToDB;
+export default saveClientToDB;

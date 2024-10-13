@@ -8,4 +8,4 @@ const formatDate = (date) => {
     }
 };
 
-module.exports = formatDate;
+export default formatDate;

@@ -1,6 +1,5 @@
-require("dotenv").config();
-const axios = require("axios");
-const { getToken } = require('./getToken');
+import axios from 'axios';
+import { getToken } from './getToken.js';
 
 const getTicket = async (ticketId) => {
     try {
@@ -18,7 +17,7 @@ const getTicket = async (ticketId) => {
     }
 };
 
-const addTags = async (ticketId) => {
+const addTagsToTicket = async (ticketId) => {
     try {
         const token = await getToken();
         const addTagsUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addtags/${ticketId}`;
@@ -35,7 +34,7 @@ const addTags = async (ticketId) => {
     }
 };
 
-const addNote = async (ticketId, noteContent) => {
+const addNoteToTicket = async (ticketId, noteContent) => {
     try {
         const token = await getToken();
         const addNoteUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addnote/${ticketId}`;
@@ -66,9 +65,9 @@ const scrambleTicket = async (ticketId) => {
     }
 };
 
-module.exports = {
+export {
     getTicket,
-    addTags,
-    addNote,
+    addTagsToTicket,
+    addNoteToTicket,
     scrambleTicket
 };
