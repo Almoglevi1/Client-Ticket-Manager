@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { getToken } from './getToken.js';
+import { getToken } from './getToken';
 
-const getTicket = async (ticketId: string) => {
+const getTicket = async (ticketId: string): Promise<any> => {
     try {
         const token = await getToken();
         const getTicketUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/get/${ticketId}`;
@@ -17,7 +17,7 @@ const getTicket = async (ticketId: string) => {
     }
 };
 
-const addTagsToTicket = async (ticketId: string) => {
+const addTagsToTicket = async (ticketId: string): Promise<void> => {
     try {
         const token = await getToken();
         const addTagsUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addtags/${ticketId}`;
@@ -34,7 +34,7 @@ const addTagsToTicket = async (ticketId: string) => {
     }
 };
 
-const addNoteToTicket = async (ticketId: string, noteContent: string) => {
+const addNoteToTicket = async (ticketId: string, noteContent: string): Promise<void> => {
     try {
         const token = await getToken();
         const addNoteUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addnote/${ticketId}`;
@@ -50,7 +50,7 @@ const addNoteToTicket = async (ticketId: string, noteContent: string) => {
     }
 };
 
-const scrambleTicket = async (ticketId: string) => {
+const scrambleTicket = async (ticketId: string): Promise<void> => {
     try {
         const token = await getToken();
         const scrambleUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/scramble/${ticketId}`;
