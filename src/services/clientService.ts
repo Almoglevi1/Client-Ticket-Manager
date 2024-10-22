@@ -23,7 +23,7 @@ export const updateOrCreateClient = async (identifier: string, ticket: ITicket):
         const update = { $push: { tickets: ticket } };
         const options = { new: true, upsert: true };
         // If no document matches the query criteria (there is no document to update) and upsert property is set to true, a new document will be created
-        return await Client.findOneAndUpdate({ identifier }, update, options) as any;
+        return await Client.findOneAndUpdate({ identifier }, update, options);
     } catch (error) {
         throw Error(`Failed to create or update client: ${(error as Error).message}`);
     }
