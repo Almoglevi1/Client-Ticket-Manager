@@ -5,14 +5,14 @@ let tokenExpiration: number | null = null;
 
 // Function to fetch a new token 
 const fetchNewToken = async (): Promise<string> => {
-    const { WORKSPACE: workspace, API_KEY: apiKey, API_SECRET: apiSecret, USER_NAME: userName } = process.env;
-    const getTokenUrl = `https://${workspace}.glassix.com/api/v1.2/token/get`;
-
     try {
+        const { WORKSPACE, API_KEY, API_SECRET, USER_NAME } = process.env;
+        const getTokenUrl = `https://${WORKSPACE}.glassix.com/api/v1.2/token/get`;
+        
         const response = await axios.post(getTokenUrl, {
-            apiKey,
-            apiSecret,
-            userName
+            apiKey: API_KEY,
+            apiSecret: API_SECRET,
+            userName: USER_NAME
         });
 
         const { access_token, expires_in } = response.data;
@@ -42,4 +42,4 @@ const getToken = async (): Promise<string> => {
     return await fetchNewToken();
 };
 
-export { getToken };
+export default getToken;

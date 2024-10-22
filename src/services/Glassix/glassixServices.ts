@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { getToken } from './getToken';
+import getToken from './getToken';
+import { Ticket } from '../../interfaces/Glassix/Ticket'; 
+import { AddNote } from '../../interfaces/Glassix/Methods';
 
-const getTicket = async (ticketId: string): Promise<any> => {
+export const getTicket = async (ticketId: number): Promise<Ticket> => {
     try {
         const token = await getToken();
         const getTicketUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/get/${ticketId}`;
@@ -11,17 +13,16 @@ const getTicket = async (ticketId: string): Promise<any> => {
                 authorization: `Bearer ${token}`,
             },
         });
-        return response.data;
+        return response.data as Ticket; // Ensure the response data conforms to the Ticket interface
     } catch (error) {
         throw new Error(`Failed to fetch ticket data for ticket ID ${ticketId}: ${(error as Error).message}`);
     }
 };
 
-const addTagsToTicket = async (ticketId: string): Promise<void> => {
+export const addTagsToTicket = async (ticketId: number, tags: string[]): Promise<void> => {
     try {
         const token = await getToken();
         const addTagsUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addtags/${ticketId}`;
-        const tags = ["testing"];
         await axios.post(addTagsUrl, tags, {
             headers: {
                 accept: "application/json",
@@ -34,11 +35,11 @@ const addTagsToTicket = async (ticketId: string): Promise<void> => {
     }
 };
 
-const addNoteToTicket = async (ticketId: string, noteContent: string): Promise<void> => {
+export const addNoteToTicket = async (ticketId: number, noteContent: AddNote): Promise<void> => {
     try {
         const token = await getToken();
         const addNoteUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/addnote/${ticketId}`;
-        await axios.post(addNoteUrl, { text: noteContent }, {
+        await axios.post(addNoteUrl, noteContent, {
             headers: {
                 accept: "application/json",
                 authorization: `Bearer ${token}`,
@@ -50,7 +51,7 @@ const addNoteToTicket = async (ticketId: string, noteContent: string): Promise<v
     }
 };
 
-const scrambleTicket = async (ticketId: string): Promise<void> => {
+export const scrambleTicket = async (ticketId: number): Promise<void> => {
     try {
         const token = await getToken();
         const scrambleUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/scramble/${ticketId}`;
@@ -63,11 +64,4 @@ const scrambleTicket = async (ticketId: string): Promise<void> => {
     } catch (error) {
         throw new Error(`Failed to scramble ticket ID ${ticketId}: ${(error as Error).message}`);
     }
-};
-
-export {
-    getTicket,
-    addTagsToTicket,
-    addNoteToTicket,
-    scrambleTicket
 };
