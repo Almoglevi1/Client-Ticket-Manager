@@ -13,7 +13,7 @@ export const getTicket = async (ticketId: number): Promise<Ticket> => {
                 authorization: `Bearer ${token}`,
             },
         });
-        return response.data as Ticket; // Ensure the response data conforms to the Ticket interface
+        return response.data;
     } catch (error) {
         throw new Error(`Failed to fetch ticket data for ticket ID ${ticketId}: ${(error as Error).message}`);
     }
