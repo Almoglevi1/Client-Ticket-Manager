@@ -7,7 +7,7 @@ export const getTicket = async (ticketId: number): Promise<Ticket> => {
     try {
         const token = await getToken();
         const getTicketUrl = `https://${process.env.WORKSPACE}.glassix.com/api/v1.2/tickets/get/${ticketId}`;
-        const response = await axios.get(getTicketUrl, {
+        const response = await axios.get<Ticket>(getTicketUrl, {
             headers: {
                 accept: "application/json",
                 authorization: `Bearer ${token}`,
