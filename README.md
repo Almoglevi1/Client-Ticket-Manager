@@ -81,3 +81,6 @@ The `Ticket` model is defined in the `Ticket.ts` file located in the `src/models
 ### Schemas
 
 The schemas for the models are defined using Mongoose. The `transactionSchema` is used to define the structure of transactions within a ticket.
+##
+![ClientTicketManager](https://github.com/user-attachments/assets/e1953397-80f5-4318-b7f9-bece6051de53)
+
