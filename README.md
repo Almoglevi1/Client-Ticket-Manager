@@ -1,4 +1,4 @@
-# ClientTicketManager
+# Client Ticket Manager
 
 ClientTicketManager is a TypeScript-based Node.js application designed to manage clients and their associated tickets. <br>It integrates with the Glassix API to handle ticket events and perform various operations on tickets. <br>The project is built using TypeScript, providing type safety and improved code quality. Interfaces and types are defined in the interfaces directory, ensuring consistent data structures throughout the application.
 ## Features
